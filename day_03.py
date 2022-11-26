@@ -29,7 +29,7 @@ def find_sled(my_map, my_rise, my_run):
         if my_x >= len(my_map[0]):
             my_x -= len(my_map[0])
 
-    print(f'Found {my_hit_total} tree colisions.')
+    print(f'Found {my_hit_total} tree collisions.')
     return my_hit_total
 
 
@@ -52,6 +52,3 @@ if __name__ == '__main__':
     print(f'Total: {total}')
 
     print(f'Total: {total}')
-
-
-
