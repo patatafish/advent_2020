@@ -1,5 +1,4 @@
-import file_io
-from shared_use import flatten
+from shared_use import flatten, read_file
 
 # create a class for the ID cards
 class IdCard:
@@ -32,7 +31,9 @@ def make_id(my_list):
 
     # flatten my nested lists
     my_list = flatten(my_list)
+    print(f'flat:{my_list}')
 
+    return my_new_id
 
 def clean_data(my_raw_data):
     # make empty list for cleaned IDs
@@ -45,15 +46,16 @@ def clean_data(my_raw_data):
             print('EOF')
             # call make_id to return class IdCard
             new_id = make_id(this_id)
+            # print(new_id)
+            my_clean_data.append(new_id)
             this_id.clear()
             continue
         this_id.append(line.split(' '))
-        print(this_id)
-
+        # print(f'this id:{this_id}')
 
 
 def main():
-    raw_data = file_io.read_file('test.dat')
+    raw_data = read_file('test.dat')
     print(raw_data)
     id_list = clean_data(raw_data)
 

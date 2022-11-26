@@ -34,7 +34,7 @@ def find_sled(my_map, my_rise, my_run):
     return my_hit_total
 
 
-if __name__ == '__main__':
+def main():
 
     raw_data = read_file('../dat/day_03.dat')
     print(raw_data)

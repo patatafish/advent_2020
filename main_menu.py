@@ -5,16 +5,15 @@ import sys
 if __name__ == '__main__':
     sys.path.append('/home/mendoncapatrick/PycharmProjects/advent2020/code')
     sys.path.append('/home/mendoncapatrick/PycharmProjects/advent2020/dat')
-    # print(sys.path)
 
     # import list of py files from code/ subdir
     options = os.listdir('code/')
     # remove support scripts from options
-    options.remove('file_io.py')
-    options.remove('__pycache__')
+    for file in options:
+        if file.find('day') == -1:
+            options.remove(f'{file}')
     options.remove('__init__.py')
 
-    # print(options)
     # items on menu for print and indexing
     menu_size = len(options)
 
