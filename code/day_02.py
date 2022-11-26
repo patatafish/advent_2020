@@ -1,5 +1,6 @@
 # file io
 def read_file(filename):
+    filename = 'code/' + filename
     with open(filename, 'r') as inf:
         my_raw_data = [line for line in inf.read().split("\n")]
     return my_raw_data
@@ -47,9 +48,9 @@ def check_b_password(my_line):
     return 0
 
 
-if __name__ == '__main__':
+def main():
 
-    raw_data = read_file('day_02.dat')
+    raw_data = read_file('../dat/day_02.dat')
     print(raw_data)
     clean_data = clean_up_data(raw_data)
 

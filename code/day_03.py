@@ -1,5 +1,6 @@
 # file i/o
 def read_file(filename):
+    filename = 'code/' + filename
     with open(filename, 'r') as inf:
         my_raw_data = [line for line in inf.read().split('\n')]
     return my_raw_data
@@ -35,7 +36,7 @@ def find_sled(my_map, my_rise, my_run):
 
 if __name__ == '__main__':
 
-    raw_data = read_file('day_03.dat')
+    raw_data = read_file('../dat/day_03.dat')
     print(raw_data)
     # show_sled(raw_data)
 

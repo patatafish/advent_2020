@@ -1,13 +1,14 @@
 # file io
 def read_file(filename):
+    filename = 'code/' + filename
     with open(filename, 'r') as inf:
         raw_data = [line for line in inf.read().split("\n")]
     return raw_data
 
 
-if __name__ == '__main__':
+def main():
 
-    raw_data = read_file('day_01.dat')
+    raw_data = read_file('../dat/day_01.dat')
     print(raw_data)
 
     my_len = len(raw_data)
