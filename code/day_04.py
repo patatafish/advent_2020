@@ -43,31 +43,43 @@ class IdCard:
         else:
             # BYR valid range 1920-2002
             if int(self.byr) > 2002 or int(self.byr) < 1920:
+                print('byr')
                 return False
             # IYR valid range 2010-2020
             if int(self.iyr) > 2020 or int(self.iyr) < 2010:
+                print('iyr')
                 return False
             # EYR valid range 2020-2030
             if int(self.eyr) > 2030 or int(self.eyr) < 2020:
+                print('eyr')
                 return False
             # HGT valid range 150-193 cm, 59-76 in
             number = int(self.hgt[:-2])
             unit = self.hgt[-2:]
             if unit != 'cm' and unit != 'in':
+                print('unit')
                 return False
             if unit == 'cm' and (number > 193 or number < 150):
+                print('cm')
                 return False
             if unit == 'in' and (number > 76 or number < 59):
+                print('in')
                 return False
             # HCL must be valid HEX, #(6 digits)
             if self.hcl[0] != '#' or len(self.hcl) != 7:
+                print('hcl format')
                 return False
             if not all(char in '0123456789abcdefABCDEF' for char in self.hcl[1:]):
+                print('hcl hex')
                 return False
             # ECL one of (amb, blu, brn, gry, grn, hzl, oth)
             if self.ecl not in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'] or len(self.ecl) > 3:
+                print('ecl')
                 return False
             # PID 9 digit number including leading zero
+            if not all(char in '0123456789' for char in self.pid) or len(self.pid) != 9:
+                print('pid')
+                return False
             # CID not checked
             return True
 
@@ -113,12 +125,16 @@ def main():
     strict_count = 0
     for person in id_list:
         print(person)
-        if person.is_valid(strict=False):
+        check = person.is_valid(strict=False)
+        strict_check = person.is_valid(strict=True)
+        if check:
             valid_count += 1
-        print(f'Valid: {person.is_valid(strict=False)}')
-        if person.is_valid(strict=True):
+        print(f'Valid: {check}')
+        if strict_check:
             strict_count += 1
-        print(f'Strict: {person.is_valid(strict=True)}\n')
+        print(f'Strict: {strict_check}\n')
+        # if check and strict_check:
+            # input()
     print(f'Total valid: {valid_count}')
     print(f'Total strict: {strict_count}')
 
