@@ -26,15 +26,50 @@ class IdCard:
         return f'BYR:{self.byr}\nIYR:{self.iyr}\nEYR:{self.eyr}\nHGT:{self.hgt}\nHCL:{self.hcl}\n' \
                f'ECL:{self.ecl}\nPID:{self.pid}\nCID:{self.cid}'
 
-    def is_valid(self):
+    def is_valid(self, strict=True):
+
         members = [attr for attr in dir(self) if not callable(getattr(self, attr)) and not attr.startswith("__")]
+        # first check, see if any members are Null, ignoring CID
         for key in members:
             if self.__dict__[key] == 'Null' and key != 'cid':
                 return False
-        return True
-
-    def strict_valid(self):
-
+        # if not a strict check, return valid status after checks
+        if not strict:
+            return True
+        # if is a strict check, procede with further validation
+        # we pass through each check immediately returning false
+        # if any check fails. After all checks passed we return
+        # true valid status
+        else:
+            # BYR valid range 1920-2002
+            if int(self.byr) > 2002 or int(self.byr) < 1920:
+                return False
+            # IYR valid range 2010-2020
+            if int(self.iyr) > 2020 or int(self.iyr) < 2010:
+                return False
+            # EYR valid range 2020-2030
+            if int(self.eyr) > 2030 or int(self.eyr) < 2020:
+                return False
+            # HGT valid range 150-193 cm, 59-76 in
+            number = int(self.hgt[:-2])
+            unit = self.hgt[-2:]
+            if unit != 'cm' and unit != 'in':
+                return False
+            if unit == 'cm' and (number > 193 or number < 150):
+                return False
+            if unit == 'in' and (number > 76 or number < 59):
+                return False
+            # HCL must be valid HEX, #(6 digits)
+            if self.hcl[0] != '#' or len(self.hcl) != 7:
+                return False
+            if not all(char in '0123456789abcdefABCDEF' for char in self.hcl[1:]):
+                return False
+            # ECL one of (amb, blu, brn, gry, grn, hzl, oth)
+            if self.ecl not in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'] or len(self.ecl) > 3:
+                return False
+            # PID 9 digit number including leading zero
+            # CID not checked
+            return True
 
 def make_id(my_list):
     my_new_id = IdCard()
@@ -75,12 +110,17 @@ def main():
     print(raw_data)
     id_list = clean_data(raw_data)
     valid_count = 0
+    strict_count = 0
     for person in id_list:
         print(person)
-        if person.is_valid():
+        if person.is_valid(strict=False):
             valid_count += 1
-        print(f'Valid: {person.is_valid()}\n')
+        print(f'Valid: {person.is_valid(strict=False)}')
+        if person.is_valid(strict=True):
+            strict_count += 1
+        print(f'Strict: {person.is_valid(strict=True)}\n')
     print(f'Total valid: {valid_count}')
+    print(f'Total strict: {strict_count}')
 
 
 # internal run testing
