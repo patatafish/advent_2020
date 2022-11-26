@@ -1,4 +1,5 @@
 import file_io
+from shared_use import flatten
 
 # create a class for the ID cards
 class IdCard:
@@ -24,14 +25,37 @@ class IdCard:
 
     def __str__(self):
         return f'BYR:{self.byr}\nIYR:{self.iyr}\nEYR:{self.eyr}\nHGT:{self.hgt}\nHCL:{self.hcl}\n' \
-               f'ECL:{sefl.ecl}\nPID:{self.pid}\nCID:{self.cid}'
+               f'ECL:{self.ecl}\nPID:{self.pid}\nCID:{self.cid}'
+
+def make_id(my_list):
+    my_new_id = IdCard()
+
+    # flatten my nested lists
+    my_list = flatten(my_list)
+
+
+def clean_data(my_raw_data):
+    # make empty list for cleaned IDs
+    my_clean_data = []
+
+    this_id = []
+    for line in my_raw_data:
+        # when we hit the empty line, push the data to a cleaner list
+        if line == '':
+            print('EOF')
+            # call make_id to return class IdCard
+            new_id = make_id(this_id)
+            this_id.clear()
+            continue
+        this_id.append(line.split(' '))
+        print(this_id)
+
 
 
 def main():
-    raw_data = file_io.read_file('test.dat', 'l')
+    raw_data = file_io.read_file('test.dat')
     print(raw_data)
-
-
+    id_list = clean_data(raw_data)
 
 
 

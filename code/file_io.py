@@ -18,3 +18,7 @@ def read_file(filename, read_type='l'):
         if read_type == 'c':
             my_raw_data = [line for line in inf.read()]
             return my_raw_data
+
+        # if we are passed another char or string to split on, do that
+        my_raw_data = [line for line in inf.read().split(read_type)]
+        return my_raw_data
