@@ -1,6 +1,6 @@
 # file io
 def read_file(filename):
-    filename = 'code/' + filename
+    filename = 'script_dir/' + filename
     with open(filename, 'r') as inf:
         raw_data = [line for line in inf.read().split("\n")]
     return raw_data

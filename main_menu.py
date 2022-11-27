@@ -3,11 +3,11 @@ import os
 import sys
 
 if __name__ == '__main__':
-    sys.path.append('/home/mendoncapatrick/PycharmProjects/advent2020/code')
+    sys.path.append('/script_dir')
     sys.path.append('/home/mendoncapatrick/PycharmProjects/advent2020/dat')
 
-    # import list of py files from code/ subdir
-    options = os.listdir('code/')
+    # import list of py files from script_dir/ subdir
+    options = os.listdir('script_dir/')
     # remove support scripts from options
     for file in options:
         if file.find('day') == -1:
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
         if 0 <= menu_choice < menu_size:
             try:
-                file_name = 'code.' + options[menu_choice]
+                file_name = 'script_dir.' + options[menu_choice]
                 print(f'Trying to run {file_name}...')
                 my_module = importlib.import_module(file_name)
             except:
