@@ -29,19 +29,60 @@ def make_groups(my_raw_data):
     return clean_list
 
 
-def asnwer_count(my_group):
+def answer_count(my_group):
 
+    group_answer_key = []
+    for passenger in my_group:
+        # parse each yes per passenger to one answer
+        passenger = list(passenger)
+        # look at each answer individually to add to group key
+        for char in passenger:
+            if char not in group_answer_key:
+                group_answer_key.append(char)
+
+
+    return len(group_answer_key)
+
+
+def group_common_count(my_group):
+
+    # create the master list of all yes answers
+    group_answer_key = []
+    for passenger in my_group:
+        # parse each yes per passenger to one answer
+        passenger = list(passenger)
+        # look at each answer individually to add to group key
+        for char in passenger:
+            if char not in group_answer_key:
+                group_answer_key.append(char)
+
+    # recheck each passenger to against yes list to see if all answered it
+    shared_count = 0
+    for question in group_answer_key:
+        flag = True
+        for passenger in my_group:
+            if question not in passenger:
+                flag = False
+                break
+        if flag: shared_count += 1
+
+    return shared_count
 
 
 def main():
-    raw_data = read_file('test.dat', 'l')
-    print(raw_data)
+    raw_data = read_file('day_06.dat', 'l')
 
     groups_list = make_groups(raw_data)
     yes_count = 0
+    group_common_yes = 0
     for group in groups_list:
-        print(group)
-        yes_count += answer_count(group)
+        my_yes = answer_count(group)
+        my_group_yes = group_common_count(group)
+        print(group, my_yes, my_group_yes)
+        yes_count += my_yes
+        group_common_yes += my_group_yes
+
+    print(f'Total: {yes_count}, Group Common: {group_common_yes}')
 
 
 if __name__ == '__main__':

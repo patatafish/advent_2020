@@ -1,5 +1,6 @@
 from shared_use import flatten, read_file
 
+
 # create a class for the ID cards
 class IdCard:
     def __init__(self, byr='Null', iyr='Null', eyr='Null', hgt='Null', hcl='Null', ecl='Null', pid='Null', cid='Null'):
@@ -36,7 +37,7 @@ class IdCard:
         # if not a strict check, return valid status after checks
         if not strict:
             return True
-        # if is a strict check, procede with further validation
+        # if is a strict check, proceed with further validation
         # we pass through each check immediately returning false
         # if any check fails. After all checks passed we return
         # true valid status
@@ -83,6 +84,7 @@ class IdCard:
             # CID not checked
             return True
 
+
 def make_id(my_list):
     my_new_id = IdCard()
 
@@ -95,9 +97,10 @@ def make_id(my_list):
         my_new_id.__dict__[this_line[0]] = this_line[1]
     return my_new_id
 
+
 def clean_data(my_raw_data):
     # we need an empty newline at the end of file to mark end
-    # if last item isnt empty line, append it
+    # if last item isn't empty line, append it
     if my_raw_data[-1] != '':
         my_raw_data.append('')
     # make empty list for cleaned IDs
@@ -133,8 +136,7 @@ def main():
         if strict_check:
             strict_count += 1
         print(f'Strict: {strict_check}\n')
-        # if check and strict_check:
-            # input()
+
     print(f'Total valid: {valid_count}')
     print(f'Total strict: {strict_count}')
 
@@ -142,4 +144,3 @@ def main():
 # internal run testing
 if __name__ == '__main__':
     main()
-

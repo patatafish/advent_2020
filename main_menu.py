@@ -3,7 +3,7 @@ import os
 import sys
 
 if __name__ == '__main__':
-    sys.path.append('/script_dir')
+    sys.path.append('/home/mendoncapatrick/PycharmProjects/advent2020/script_dir')
     sys.path.append('/home/mendoncapatrick/PycharmProjects/advent2020/dat')
 
     # import list of py files from script_dir/ subdir
@@ -50,8 +50,9 @@ if __name__ == '__main__':
                 file_name = 'script_dir.' + options[menu_choice]
                 print(f'Trying to run {file_name}...')
                 my_module = importlib.import_module(file_name)
-            except:
+            except Exception as e:
                 print('I had an error trying to run the file')
+                print(str(e))
                 continue
 
             print('Imported Module...\n\n')
